@@ -1,0 +1,220 @@
+@media screen and (max-width: 330px) {
+    .pInfo .btn i {
+        font-size: 0.8em !important;
+    }
+
+    .pInfo .btn {
+        width: 90% !important;
+        right: 1px !important;
+    }
+}
+
+.opacity {
+    background-color: #292929;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 97;
+    opacity: 0.7;
+    display: none;
+}
+
+.right_box {
+    width: 100%;
+    float: left;
+    margin: 0;
+    background: #fff;
+    position: relative;
+    min-height: 500px;
+}
+
+.pInfo {
+    overflow: hidden;
+    /*background: aquamarine;*/
+    position: relative;
+    padding-left: 60px;
+    height: 100px;
+    border-bottom: 1p x solid #e7eaeb;
+    border-top: 1px solid #fff;
+}
+
+.pInfo .text {
+    width: 60%;
+    overflow: hidden;
+    position: relative;
+    left: 20px;
+}
+
+.pInfo p {
+    margin: 0;
+    padding: 0;
+}
+
+.pInfo p.x-title {
+    margin-top: 5px;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.pInfo p.x-context {
+    font-size: 0.75em;
+}
+
+.pInfo img {
+    border:none;
+    height: 70px!important;
+    width: 70px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 15px 0;
+    border-radius:10px;
+}
+
+.right_content {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: right;
+    width: 30%;
+    height: 80px;
+}
+
+.price {
+    font-weight: 600;
+    font-size: 5vw;
+    position: absolute;
+    right: 16px;
+    bottom: 45px;
+}
+
+.pInfo .btn {
+    text-align: center;
+    position: absolute;
+    right: 5px;
+    bottom: 6px;
+    cursor: pointer;
+    width: 90%;
+    height: 40px;
+}
+
+.pInfo .btn button {
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    display: inline-block;
+    text-align: center;
+    font-size: 6.5vw;
+    border: none;
+    width: 30%;
+    height: 0;
+    padding-bottom: 30%;
+    border-radius: 999px;
+}
+
+.pInfo .btn i {
+    width: 30%;
+    font-size: 0.9em;
+    display: inline-block;
+    text-align: center;
+    font-style: normal;
+    vertical-align: center;
+    margin-top: 11px;
+}
+
+#buy_list {
+    display: none;
+    width: 100%;
+    height: auto;
+    z-index: 99;
+}
+
+#buy_list table tr td:first-child {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#buy_list table tr td:nth-child(2) {
+    font-weight: 600;
+    display: inline-block;
+    position: absolute;
+    right: 15%;
+}
+
+.footer {
+    display: none;
+    position: fixed;
+    left: 0;
+    padding: 5px 0;
+    width: 100%;
+    z-index: 99;
+    bottom: 0;
+    color: #f03c03;
+    background: #fff;
+    line-height: 35px;
+    font-size: 15px;
+}
+
+.footer .left {
+    float: left;
+    margin-left: 15px;
+}
+
+.footer .right {
+    float: right;
+    margin-right: 20px;
+}
+
+.footer .right .disable {
+    background: #dbdbdb;
+}
+
+.footer .xhlbtn {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+    padding: 0 15px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+
+/*查看订单*/
+#bought_list
+{
+    display: none;
+    background-color: #a3d6dd;
+    position: relative;
+    box-shadow: 1px 1px 200px #d7d7d7;
+    border-radius: 5px;
+    top: 50px;
+    margin: 0 auto;
+    width: 85%;
+    height: auto;
+    z-index: 99;
+    padding: 10px;
+}
+
+#bought_list tr{
+    font-size: 1.2em;
+    height: 40px;
+    display: inline-block;
+    width: 80%;
+}
+
+#bought_list table tr td:first-child {
+    display: inline-block;
+    position: relative;
+    left: 25%;
+}
+
+#bought_list table tr td:nth-child(2) {
+    font-weight: 600;
+    display: inline-block;
+    position: absolute;
+    right: 25%;
+}
