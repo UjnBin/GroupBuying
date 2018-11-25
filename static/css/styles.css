@@ -203,13 +203,13 @@
     font-size: 1.2em;
     height: 40px;
     display: inline-block;
-    width: 80%;
-}
+    width: 100%;
+} 
 
 #bought_list table tr td:first-child {
     display: inline-block;
     position: relative;
-    left: 25%;
+    left: 90%;
 }
 
 #bought_list table tr td:nth-child(2) {
