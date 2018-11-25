@@ -79,6 +79,7 @@
             crossDomain: true,
             success: function (all, r, xhr) {
                 console.log(all);
+                console.log(window.sessionStorage);
                 openid = all.open_id;
                 group_number = all.group_number;
                 //已买
