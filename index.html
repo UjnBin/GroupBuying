@@ -191,10 +191,12 @@
             },
             crossDomain: true,
             function(res) {
+                console.log(res);
                 if (res == '0') {
                     alert('提交失败');
                 }
                 if (res == '1') {
+
                     alert('提交成功');
                     setTimeout('window.location.reload()', 500);
                 }
