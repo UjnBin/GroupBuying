@@ -66,20 +66,9 @@
 
         //载入时get请求  获得openid 是否已提交
         //test参数在下面
-
-        $.ajax({
-            url: furl + "groupbuying/api/Get_Product_1/5?code=" + code,
-            type: 'GET',
-            // data: data,
-            async: false,
-            dataType: 'json',
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
-            success: function (all, r, xhr) {
+        $.get(furl + "groupbuying/api/Get_Product_1/5?code=" + code,
+            function (all) {
                 console.log(all);
-                console.log(window.sessionStorage);
                 openid = all.open_id;
                 group_number = all.group_number;
                 //已买
@@ -99,8 +88,8 @@
                     }
                 }
 
-            }
-        });
+            });
+
 
         //监视动态结点  添加事件
         $('.right_box').on('click', '.add', function () {
@@ -186,7 +175,7 @@
                 }
                 if (res == '1') {
                     alert('提交成功');
-                    setTimeout('window.location.reload()', 500);
+                    setTimeout('window.location.reload()',500);
                 }
                 if (res == '-1') {
                     alert('未到开团时间');
