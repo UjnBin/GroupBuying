@@ -190,8 +190,7 @@
                 withCredentials: true
             },
             crossDomain: true,
-            function(res) {
-                console.log(res);
+            success:function(res) {
                 if (res == '0') {
                     alert('提交失败');
                 }
