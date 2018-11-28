@@ -25,9 +25,8 @@
     width: 100%;
     float: left;
     margin: 0;
-    background: #fff;
     position: relative;
-    min-height: 500px;
+    height: auto;
 }
 
 .pInfo {
