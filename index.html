@@ -11,7 +11,7 @@
 
 <div id="bought_list"><table></table></div>
 
-<!--<div id="tip">团长您好</div>-->
+<div id="tip">团长您好</div>
 
 <div class="left_box"></div>
 
@@ -75,11 +75,9 @@
                 withCredentials: true
             },
             crossDomain: true,
-            success: function (all) {
+            success: function (all, r, xhr) {
                 console.log(all);
-                console.log(window.sessionStorage);
                 openid = all.open_id;
-
                 group_number = all.group_number;
                 //已买
                 if (all.bought == 1) {
