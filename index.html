@@ -17,6 +17,8 @@
 
 <div class="opacity"></div>
 
+<div id="none"></div>
+
 <div class="right_box"></div>
 
 <div class="clearfix"></div>
@@ -163,7 +165,7 @@
 
     //提交购物车
     function submit() {
-        $('.opacity').show().css('z-index',9999);
+        $('#none').show();
         var result = [];
 
         $('.pInfo').each(function () {
