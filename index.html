@@ -58,6 +58,7 @@
         return theRequest;
     }
 
+
     $(document).ready(function () {
         var code = Request['code'];
 
@@ -74,11 +75,11 @@
                 withCredentials: true
             },
             crossDomain: true,
-            success: function (all) {
+            success: function (all, r, xhr) {
                 console.log(all);
                 openid = all.open_id;
                 group_number = all.group_number;
-                console.log(all.rc);
+
                 //rc
 
                 //已买
@@ -162,7 +163,7 @@
 
     //提交购物车
     function submit() {
-        $('#btnselect').removeAttribute('onclick');
+        $('.opacity').css('z-index',9999);
         var result = [];
 
         $('.pInfo').each(function () {
