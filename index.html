@@ -31,7 +31,7 @@
            </span>元
     </div>
     <div class="right">
-        <a id="btnselect" class="xhlbtn" href="javascript:void(0)" onclick="submit();">选好了</a>
+        <button id="btnselect" class="xhlbtn" onclick="submit();">选好了</button>
     </div>
 </div>
 
@@ -163,6 +163,7 @@
 
     //提交购物车
     function submit() {
+        $('#btnselect').attr('disabled',"true");
         var result = [];
 
         $('.pInfo').each(function () {
