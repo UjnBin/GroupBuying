@@ -204,7 +204,7 @@
     height: 40px;
     display: inline-block;
     width: 100%;
-} 
+}
 
 #bought_list table tr td:first-child {
     display: inline-block;
@@ -217,4 +217,15 @@
     display: inline-block;
     position: absolute;
     right: 25%;
+}
+
+/*提示*/
+#tip
+{
+    display: none;
+    width: 100%;
+    position: relative;
+    top: 0;
+    height: auto;
+    background-color: #eeecec;
 }
