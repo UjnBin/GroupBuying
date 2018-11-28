@@ -75,10 +75,13 @@
                 withCredentials: true
             },
             crossDomain: true,
-            success: function (all, r, xhr) {
+            success: function (all) {
                 console.log(all);
                 openid = all.open_id;
                 group_number = all.group_number;
+                console.log(all.rc);
+                //rc
+
                 //已买
                 if (all.bought == 1) {
                     $('#bought_list').show();

@@ -9,6 +9,10 @@
     }
 }
 
+body {
+    background-color: white;
+}
+
 .opacity {
     background-color: #292929;
     position: fixed;
@@ -63,14 +67,14 @@
 }
 
 .pInfo img {
-    border:none;
-    height: 70px!important;
+    border: none;
+    height: 70px !important;
     width: 70px;
     position: absolute;
     left: 0;
     top: 0;
     padding: 15px 0;
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 .right_content {
@@ -181,11 +185,8 @@
     font-weight: bold;
 }
 
-
-
 /*查看订单*/
-#bought_list
-{
+#bought_list {
     display: none;
     background-color: #a3d6dd;
     position: relative;
@@ -199,7 +200,7 @@
     padding: 10px;
 }
 
-#bought_list tr{
+#bought_list tr {
     font-size: 1.2em;
     height: 40px;
     display: inline-block;
@@ -220,8 +221,7 @@
 }
 
 /*提示*/
-#tip
-{
+#tip {
     display: none;
     width: 100%;
     position: relative;
