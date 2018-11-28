@@ -193,18 +193,18 @@
                 withCredentials: true
             },
             crossDomain: true,
-            // success:function(res) {
-            //     if (res == '0') {
-            //         alert('提交失败');
-            //     }
-            //     if (res == '1') {
-            //         alert('提交成功');
-            //         setTimeout('window.location.reload()', 500);
-            //     }
-            //     if (res == '-1') {
-            //         alert('未到开团时间');
-            //     }
-            // }
+            success:function(res) {
+                if (res == '0') {
+                    alert('提交失败');
+                }
+                if (res == '1') {
+                    alert('提交成功');
+                    setTimeout('window.location.reload()', 500);
+                }
+                if (res == '-1') {
+                    alert('未到开团时间');
+                }
+            }
         });
 
 
