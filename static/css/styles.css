@@ -2,8 +2,9 @@
     .pInfo .btn i {
         font-size: 0.8em !important;
     }
+
     /*.pInfo .right_content{*/
-        /*width: 35% !important;*/
+    /*width: 35% !important;*/
     /*}*/
     .pInfo .btn {
         width: 100% !important;
@@ -11,8 +12,8 @@
     }
 
     .pInfo .btn button {
-        width: 5px !important;
-        height: 5px !important;
+        width: 7vw !important;
+        height: 7vw !important;
     }
 
     .footer {
@@ -138,6 +139,7 @@ body {
     width: 7.5vw;
     height: 7.5vw;
     border-radius: 999px;
+    padding: 0!important;
 }
 
 .pInfo .btn i {

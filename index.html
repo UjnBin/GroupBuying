@@ -44,16 +44,12 @@
     page_width=document.body.clientWidth;
 
 
-
-
     var furl = 'http://47.93.220.57/';
-    var group_number = '';
-    var openid = '';
+    var group_number,openid,rc,client_name;
 
     // 获得url参数
     var Request = new Object();
     Request = GetRequest();
-
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -68,15 +64,10 @@
     }
 
     $(document).ready(function () {
-        //css
-
-
-
         var code = Request['code'];
 
         //载入时get请求  获得openid 是否已提交
         //test参数在下面
-
         $.ajax({
             url: furl + "groupbuying/api/Get_Product_1/5?code=" + code,
             type: 'GET',
@@ -87,12 +78,12 @@
                 withCredentials: true
             },
             crossDomain: true,
-            success: function (all, r, xhr) {
+            success: function (all) {
                 console.log(all);
                 openid = all.open_id;
                 group_number = all.group_number;
-
-                //rc
+                client_name=all.client_name;
+                rc=all.rc; //是否团长
 
                 //已买
                 if (all.bought == 1) {
@@ -197,7 +188,8 @@
                 group_number: group_number,//第几期
                 order_number: group_number + '|' + openid,//订单号
                 p_single: 0,
-                rc_id: 0
+                rc_id: 0,
+                client_name:client_name
             },
             async: false,
             dataType: 'json',
