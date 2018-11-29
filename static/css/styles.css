@@ -212,12 +212,13 @@ body {
 
 /*查看订单*/
 #bought_list {
-    display: none;
-    background-color: #a3d6dd;
+    /*display: none;*/
+    display: block;
+    background-color: #f4dadb;
+    box-shadow: 1px 1px 100px #fae0e1;
     position: relative;
-    box-shadow: 1px 1px 200px #d7d7d7;
     border-radius: 5px;
-    top: 50px;
+    top: 60px;
     margin: 0 auto;
     width: 85%;
     height: auto;
@@ -225,24 +226,20 @@ body {
     padding: 10px;
 }
 
-#bought_list tr {
-    font-size: 1.2em;
-    height: 40px;
-    display: inline-block;
+#bought_list table {
+    line-height: 1.8rem;
     width: 100%;
 }
 
 #bought_list table tr td:first-child {
-    display: inline-block;
-    position: relative;
-    left: 90%;
+    padding-left: 20%;
+    width: auto;
 }
 
 #bought_list table tr td:nth-child(2) {
-    font-weight: 600;
-    display: inline-block;
     position: absolute;
-    right: 25%;
+    right: 20%;
+    width: auto;
 }
 
 /*提示*/
