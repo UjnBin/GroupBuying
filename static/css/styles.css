@@ -2,16 +2,18 @@
     .pInfo .btn i {
         font-size: 0.8em !important;
     }
-
+    /*.pInfo .right_content{*/
+        /*width: 35% !important;*/
+    /*}*/
     .pInfo .btn {
         width: 100% !important;
         right: 1px !important;
     }
 
-    .pInfo .btn button {
-        width: 30px !important;
-        height: 30px !important;
-    }
+    /*.pInfo .btn button {*/
+        /*width: 30px !important;*/
+        /*height: 30px !important;*/
+    /*}*/
 
     .footer {
         font-size: 0.75rem !important;
