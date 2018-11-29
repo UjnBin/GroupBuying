@@ -7,11 +7,6 @@
         right: 1px !important;
     }
 
-    .pInfo .btn button {
-        width: 7vw!important;
-        height: 7vw!important;
-    }
-
     .footer {
         font-size: 0.75rem !important;
     }
@@ -132,9 +127,14 @@ body {
     text-align: center;
     font-size: 6.5vw;
     border: none;
-    width: 7vw;
-    height: 7vw;
+    width: 30%;
     border-radius: 999px;
+}
+
+.pInfo .btn button ::before {
+    content: "";
+    padding-top: 30%;
+    display: block;
 }
 
 .pInfo .btn i {
