@@ -41,12 +41,9 @@
 <script>
 
     //css
-    alert(document.body.clientWidth);
     page_width=document.body.clientWidth;
 
 
-    $('.btn').each($(this).hide());
-    $('.btn').css('width',0.07*page_width).css('height',0.07*page_width);
 
 
     var furl = 'http://47.93.220.57/';
@@ -71,6 +68,12 @@
     }
 
     $(document).ready(function () {
+        //css
+        $('.btn').css('width',0.07*page_width).css('height',0.07*page_width);
+
+
+
+
         var code = Request['code'];
 
         //载入时get请求  获得openid 是否已提交
