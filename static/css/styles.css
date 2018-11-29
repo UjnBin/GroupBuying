@@ -4,8 +4,11 @@
     }
 
     .pInfo .btn {
-        width: 70% !important;
+        width: 100% !important;
         right: 1px !important;
+    }
+    .footer {
+        font-size: 0.65rem;
     }
 }
 
@@ -44,6 +47,7 @@ body {
     position: relative;
     height: auto;
     background-color: white;
+    padding-bottom: 80px;
 }
 
 .pInfo {
