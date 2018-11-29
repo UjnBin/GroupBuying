@@ -7,8 +7,13 @@
         right: 1px !important;
     }
 
+    .pInfo .btn button {
+        width: 7vw!important;
+        height: 7vw!important;
+    }
+
     .footer {
-        font-size: 0.75rem!important;
+        font-size: 0.75rem !important;
     }
 }
 
@@ -28,7 +33,7 @@ body {
     display: none;
 }
 
-#none{
+#none {
     background-color: #292929;
     position: fixed;
     left: 0;
