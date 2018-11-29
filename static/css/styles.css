@@ -10,10 +10,10 @@
         right: 1px !important;
     }
 
-    /*.pInfo .btn button {*/
-        /*width: 30px !important;*/
-        /*height: 30px !important;*/
-    /*}*/
+    .pInfo .btn button {
+        width: 20px !important;
+        height: 20px !important;
+    }
 
     .footer {
         font-size: 0.75rem !important;

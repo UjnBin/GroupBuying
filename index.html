@@ -69,8 +69,6 @@
 
     $(document).ready(function () {
         //css
-        $('.pInfo .btn button').css('width',0.07*page_width).css('height',0.07*page_width);
-
 
 
 
@@ -102,6 +100,8 @@
                     for (var i in all.product) {
                         var card1 = '<tr><td>' + all.product[i].product_name + '</td> <td>' + all.product[i].product_number + '</td></tr>'
                         $('#bought_list table').append(card1);
+
+
                     }
                 }
                 //未买
