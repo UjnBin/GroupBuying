@@ -2,35 +2,89 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>buy</title>
     <script type="text/javascript" src="./static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./static/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+
+    <script src="./static/js/vconsole.min.js"></script>
+    <!--<script>var vConsole = new VConsole();</script>-->
+
+    <script src="static/js/common.js"></script>
     <link rel="stylesheet" type="text/css" href="./static/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/weui.css">
 </head>
 <body>
 
-<div id="bought_list"><table></table></div>
 
-<div id="tip">团长您好</div>
+<div id="tip">
 
-<div class="left_box"></div>
+    <div class="weui-cell weui-cell_switch">
+        <div class="weui-cell__bd">团长您好</div>
+        <div class="weui-cell__ft">添加假单
+            <input class="weui-switch" type="checkbox" id="false-from" onclick="$('#false-div').toggle();">
+        </div>
+    </div>
+
+
+    <div class="weui-cell" id="false-div" style="display: none">
+        <div class="weui-cell__hd"><label class="weui-label">假名</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="false-name" placeholder="输入假名"/>
+        </div>
+    </div>
+
+    <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default"
+       onclick="$('#form-list').toggle();$('#bought').hide();$('.buying').hide()">订单列表</a>
+    <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default"
+       onclick="$('#bought').hide();$('.buying').toggle();$('#form-list').hide()">下单界面</a>
+    <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default"
+       onclick="$('#text-copy #text1').empty().append(start_copy_text);$('#bought').hide();$('#text-copy').toggle()">开团单</a>
+    <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default"
+       onclick="over_order();$('#bought').hide();$('#text-copy').toggle()">结团单</a>
+
+
+    <div id="form-list" style="display: none"></div>
+
+    <div id="text-copy" style="display: none">
+        <div id="text1"></div>
+        <a href="javascript:" id="copy-button" class="weui-btn weui-btn_plain-primary" data-clipboard-target="#text1"
+           onclick="$('.opacity').toggle();">复制并关闭</a>
+    </div>
+
+</div>
+
+<div id="bought">
+    <div id="title">的购物清单</div>
+    <div id="share-tip"><img src="static/images/share.png"></div>
+    <div id="bought_list">
+        <table></table>
+        <div id="all-money"></div>
+        <div id="bought-bs">
+            <div id="delete-this" class="bought-button">重新<br>下单</div>
+            <div id="share-this" class="bought-button">分享<br>订单</div>
+        </div>
+    </div>
+</div>
 
 <div class="opacity"></div>
 
 <div id="none"></div>
 
-<div class="right_box"></div>
+<div class="right_box buying"></div>
 
 <div class="clearfix"></div>
 
-<div class="footer">
+<div class="footer buying">
     <div id="buy_list">
         <table></table>
     </div>
     <div class="left" onclick="show_buy_list()">
         已选：<span id="cartN">
-             <span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span>
-           </span>元
+             <span id="totalcountshow" class="reset">0</span>份　总计：￥<span id="totalpriceshow" class="reset">0</span>
+           </span>元<span style="font-size:10px;">&nbsp;&nbsp;查看购物车</span>
     </div>
     <div class="right">
         <a id="btnselect" class="xhlbtn" href="javascript:void(0)" onclick="submit();">选好了</a>
@@ -39,75 +93,149 @@
 
 
 <script>
+    var furl = 'http://47.93.220.57/groupbuying/api';
+    var group_number, openid, rc, client_name, order_number, code, share_imgurl;
+    var start_copy_text='',over_copy_text='';
+    var all_money = 0;
+    var curl = location.href.split('#')[0];
 
-    //css
-    page_width=document.body.clientWidth;
+    //复制
+    var copyBtn = new ClipboardJS('#copy-button');
 
+    copyBtn.on("success", function (e) {
+        // 复制成功
+        alert('复制成功');
+        $('.opacity').hide();
+        $('#text-copy').hide();
+        e.clearSelection();
+    });
 
-    var furl = 'http://47.93.220.57/';
-    var group_number,openid,rc,client_name;
+    //初始化  有openID时直接 没有时先获取  重置页面的一些值
+    function init(code) {
+        $('.reset').text(0);
 
-    // 获得url参数
-    var Request = new Object();
-    Request = GetRequest();
-    function GetRequest() {
-        var url = location.search;
-        var theRequest = new Object();
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            strs = str.split("&");
-            for (var i = 0; i < strs.length; i++) {
-                theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
-            }
+        if (localStorage.openid && localStorage.openid != 'undefined') {
+            var temp_data = {openId: localStorage.openid, client_name: localStorage.client_name};
+            var temp_url = furl + '/Get_Product_2'
         }
-        return theRequest;
-    }
-
-    $(document).ready(function () {
-        var code = Request['code'];
-
-        //载入时get请求  获得openid 是否已提交
-        //test参数在下面
-        $.ajax({
-            url: furl + "groupbuying/api/Get_Product_1/5?code=" + code,
-            type: 'GET',
-            // data: data,
-            async: false,
-            dataType: 'json',
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
+        else {
+            //获取openID
+            var temp_data = {'code': code};
+            var temp_url = furl + "/Get_Product_1/5";
+        }
+        ajax({
+            url: temp_url,
+            data: temp_data,
+            type: 'get',
             success: function (all) {
-                console.log(all);
-                openid = all.open_id;
-                group_number = all.group_number;
-                client_name=all.client_name;
-                rc=all.rc; //是否团长
+                if (all.isreg == '0') {
+                    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4acf59cd381f3e28&redirect_uri=http%3a%2f%2fxmhome.xyz%2fConch%2fnormal-register.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+                }
 
+                if (!localStorage.openid || localStorage.openid == 'undefined') {
+                    localStorage.openid = all.open_id;
+                    localStorage.client_name = all.client_name;
+                }
+                group_number = all.group_number;
+                rc = all.isrc; //是否团长
+                if (rc == '1') {
+                    $('#tip').show();
+                    $('#bought').hide();
+                    //获取假单列表  真单走老接口
+                    ajax({
+                        url: furl + '/GetRCPSingle',
+                        type: 'get',
+                        data: {rc_id: 0},
+                        success: function (res) {
+                            var temp_text = '<div class="weui-cells__title">订单列表</div>';
+                            for (var i in res.ordernumber) {
+                                temp_text = temp_text + `<a class="weui-cell weui-cell_access" onclick="false_order('${res.ordernumber[i]}')"><div class="weui-cell__bd"><p>${parseInt(i)}</p></div><div class="weui-cell__ft">假单</div></a>`
+                            }
+                            $('#form-list').append(temp_text)
+                        }
+                    });
+                    //todo获取商品列表 加开团单
+                    ajax({
+                        url: furl + '/Get_Product_2/5',
+                        type: 'get',
+                        success: function (res) {
+                            $('.footer').show();
+                            for (var i in res) {
+                                start_copy_text =start_copy_text + (parseInt(i) + 1) + '&nbsp&nbsp' + res[i].product_name + '&nbsp&nbsp￥' + res[i].product_price + '<br>' + res[i].product_intro + '<br>'
+                                var card1 = '<div class="pInfo" id="' + res[i].product_id + '"><img src="' + res[i].product_picture_url + '"/><div class="text"><p class="x-title">' + res[i].product_name + '</p> <p class="x-context">' + res[i].product_intro + '</p> </div><div class="right_content"> <div class="price">￥' + res[i].product_price + '</div> <div class="btn"><button class="minus" disabled="disabled">-</button><i>0</i><button class="add">+</button></div></div></div>'
+                                $('.right_box').append(card1);
+                            }
+                        }
+                    })
+                }
                 //已买
                 if (all.bought == 1) {
-                    $('#bought_list').show();
-                    for (var i in all.product) {
-                        var card1 = '<tr><td>' + all.product[i].product_name + '</td> <td>' + all.product[i].product_number + '</td></tr>'
-                        $('#bought_list table').append(card1);
+                    if (rc != '1') {
+                        var share_text = '';
+                        all_money = 0;
+                        order_number = all.order_number;
+                        $('#bought #title').text(all.client_name + '的购物清单');
+                        $('#bought').show();
+                        $('#share-tip').hide();
 
+                        for (var i in all.product) {
+                            share_text = share_text + all.product[i].product_name + ' ';
+                            console.log(all_money);
+                            var temp_money = parseFloat((all.product[i].product_number * all.product[i].product_price).toFixed(2));
+                            all_money = all_money + temp_money;
+                            var card1 = '<tr><td>' + all.product[i].product_name + '</td> <td>x' + all.product[i].product_number + '=￥' + temp_money + '</td></tr>';
+                            $('#bought_list table').append(card1);
+                        }
+
+
+                        $('#all-money').text('共' + all_money.toFixed(2) + '元');
+                        wx_share(share_text + '...');
+                    }
+                    if (rc == '1') {
+                        order_number = all.order_number;
+                        var temp_text = `<a class="weui-cell weui-cell_access" onclick="false_order('${order_number}')"><div class="weui-cell__bd"><p>1</p></div><div class="weui-cell__ft">真单</div></a>`
+                        $('#form-list').append(temp_text);
 
                     }
                 }
                 //未买
-                if (all.bought == 0) {
+                if (all.bought == 0 && rc != '1') {
+                    $('#bought_list table').empty();
                     $('.footer').show();
+                    if (all.product == false) {
+                        alert('未到开团时间')
+                    }
                     for (var i in all.product) {
                         var card1 = '<div class="pInfo" id="' + all.product[i].product_id + '"><img src="' + all.product[i].product_picture_url + '"/><div class="text"><p class="x-title">' + all.product[i].product_name + '</p> <p class="x-context">' + all.product[i].product_intro + '</p> </div><div class="right_content"> <div class="price">￥' + all.product[i].product_price + '</div> <div class="btn"><button class="minus" disabled="disabled">-</button><i>0</i><button class="add">+</button></div></div></div>'
                         $('.right_box').append(card1);
                     }
                 }
-
             }
         });
+        ajax({
+            url: furl + '/GetSignature',
+            type: 'get',
+            data: {url: encodeURIComponent(curl)},
+            success: function (res) {
+                wx.config({
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: 'wx4acf59cd381f3e28', // 必填，公众号的唯一标识
+                    timestamp: res.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: res.nonceStr, // 必填，生成签名的随机串
+                    signature: res.signature,// 必填，签名
+                    jsApiList: ['onMenuShareAppMessage', //1.0 分享到朋友
+                        'onMenuShareTimeline', //1.0分享到朋友圈
+                        'updateAppMessageShareData', //1.4 分享到朋友
+                        'updateTimelineShareData',
+                        'showMenuItems'] //1.4分享到朋友圈
+                });
+            }
+        })
+    }
 
-
+    $(document).ready(function () {
+        code = Request['code'];
+        init(code);
         //监视动态结点  添加事件
         $('.right_box').on('click', '.add', function () {
             $(this).prev().prev().removeAttr("disabled");
@@ -123,7 +251,6 @@
             var nm = $("#totalcountshow").html();//获取数量
             $("#totalcountshow").html(nm * 1 + 1);
         });
-
         //减的效果
         $('.right_box').on('click', '.minus', function () {
             var n = $(this).next().text();
@@ -142,79 +269,40 @@
                 return
             }
         });
-
-
     });
 
-    //未提交时 查看购物车
-    $('.opacity').click(function () {
-        $('#buy_list').toggle();
-        $(this).toggle();
-    });
 
-    function show_buy_list() {
-        $('#buy_list').toggle();
-        $('.opacity').toggle();
-        var str = '';
-        $('.pInfo').each(function () {
-            if ($(this).find('i').text() != 0) {
-                var x = '<tr><td>' + $(this).find('.x-title').text() + '</td><td>' + $(this).find('i').text() + '</td></tr>';
-                str = str + x;
+    //结团单
+    function over_order() {
+        over_copy_text=''
+        ajax(
+            {
+                url:furl+'/GetShopList2?rc_id=0',
+                success:function (all) {
+                    var res=all.product;
+                    for (var i in res){
+                        over_copy_text=over_copy_text+res[i].client_name+'<br>'
+                        for (var j in res[i].products){
+                            over_copy_text=over_copy_text+res[i].products[j].product_name+'X'+res[i].products[j].product_number+'&nbsp&nbsp'
+                        }
+                        over_copy_text=over_copy_text+'<br>';
+                    }
+                    $('#text-copy #text1').empty().append(over_copy_text);
+                }
+
+
             }
-        });
-        $('#buy_list').find('table').html(str);
+        )
     }
 
 
-    //提交购物车
-    function submit() {
-        $('#none').show();
-        var result = [];
-
-        $('.pInfo').each(function () {
-            if ($(this).find('i').text() != 0) {
-                var x = {product_id: $(this).attr('id'), product_number: $(this).find('i').text()};
-                result.push(x)
-            }
-        });
-
-
-        $.ajax({
-            url: furl + 'groupbuying/api/SubShopList',
-            type: 'POST',
-            data: {
-                value: result,
-                open_id: openid,
-                group_number: group_number,//第几期
-                order_number: group_number + '|' + openid,//订单号
-                p_single: 0,
-                rc_id: 0,
-                client_name:client_name
-            },
-            async: false,
-            dataType: 'json',
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
-            success:function(res) {
-                if (res == '0') {
-                    alert('提交失败');
-                }
-                if (res == '1') {
-                    alert('提交成功');
-                    setTimeout('window.location.reload()', 500);
-                }
-                if (res == '-1') {
-                    alert('未到开团时间');
-                }
-            }
-        });
-
-
-    }
 
 </script>
 
+<script src="static/js/index1.js"></script>
+
 </body>
 </html>
+
+
+

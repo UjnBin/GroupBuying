@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>test</title>
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styles-bought.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+</head>
+<body>
+
+<div id="bought" style="display: block">
+    <div id="title">的购物清单</div>
+    <div id="share-tip"><img src="../static/images/share.png"></div>
+    <div id="bought_list">
+        <table></table>
+        <div id="all-money"></div>
+        <div id="bought-bs">
+            <div id="delete-this" class="bought-button">重新<br>下单</div>
+            <div id="share-this" class="bought-button">分享<br>订单</div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var furl = 'http://47.93.220.57/groupbuying/api';
+    var group_number, openid, rc, client_name, ordernumber, code;
+
+    function ajax(p) {
+        var dataType = p.dataType || 'json';//接收数据类型
+        var async = p.async || false;//异步请求
+        var error = p.error || function (xhr, status, error) {
+            alert('出现错误' + xhr + status + error);
+        };
+        $.ajax({
+            url: p.url,
+            type: p.type,
+            data: p.data,
+            success: p.success,
+            dataType: dataType,
+            async: async,
+            error: error,
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+        });
+    }
+
+    var Request = new Object();
+    Request = GetRequest();
+
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+    $(document).ready(function () {
+        var order_number = Request['order_number'];
+
+        ajax({
+            url: furl + '/GetShopList',
+            type: 'get',
+            data: {order_number: order_number},
+            success: function (all) {
+                var share_text = '';
+                client_name = all[0].client_name;
+                $('#bought #title').text(client_name + '的购物清单');
+                for (var i in all) {
+                    share_text = share_text + all[i].product_name + ' ';
+                    var card1 = '<tr><td>' + all[i].product_name + '</td> <td>x' + all[i].product_number + '</td></tr>'
+                    $('#bought_list table').append(card1);
+                }
+                wx_share(share_text + '...');
+            }
+        })
+
+
+        // ajax({
+        //     url: furl + '/GetSignature',
+        //     type: 'get',
+        //     data: {url: encodeURIComponent(curl)},
+        //     success: function (res) {
+        //         wx.config({
+        //             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        //             appId: 'wx4acf59cd381f3e28', // 必填，公众号的唯一标识
+        //             timestamp: res.timestamp, // 必填，生成签名的时间戳
+        //             nonceStr: res.nonceStr, // 必填，生成签名的随机串
+        //             signature: res.signature,// 必填，签名
+        //             jsApiList: ['onMenuShareAppMessage', //1.0 分享到朋友
+        //                 'onMenuShareTimeline', //1.0分享到朋友圈
+        //                 'updateAppMessageShareData', //1.4 分享到朋友
+        //                 'updateTimelineShareData',
+        //                 'showMenuItems'] //1.4分享到朋友圈
+        //         });
+        //     }
+        // })
+
+
+    });
+
+
+    //已购买
+    $('#delete-this').click(function () {
+        var r = confirm("是否删除当前订单重新选择商品");
+        if (r == true) {
+            ajax({
+                url: furl + '/Delete',
+                type: 'get',
+                data: {'ordernumber': order_number},
+                success: function (res) {
+                    if (res == '1') {
+                        $('#bought').hide();
+                        init();
+                        $('.buying').show();
+                        $('#buy_list').hide();
+                    }
+                    else {
+                        alert('删除失败')
+                    }
+                }
+            })
+        }
+        else {
+        }
+    });
+
+    //分享
+    function wx_share(share_text) {
+        wx.ready(function () {
+            var shareData = {
+                title: '我今天又在海螺王抢购了',
+                desc: '我买了' + share_text,
+                link: 'http://xmhome.xyz/groupbuying/api/s301',
+                imgUrl: 'http://47.93.220.57/GROUP_BUY_PRODUCT/longxia1.jpg',
+                success: function (res) {
+                    alert('已分享');
+                },
+                cancel: function (res) {
+                    alert('已取消');
+                },
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            };
+            if (wx.onMenuShareAppMessage) { //微信文档中提到这两个接口即将弃用，故判断
+                wx.onMenuShareAppMessage(shareData);//1.0 分享到朋友
+                wx.onMenuShareTimeline(shareData);//1.0分享到朋友圈
+            } else {
+                wx.updateAppMessageShareData(shareData);//1.4 分享到朋友
+                wx.updateTimelineShareData(shareData);//1.4分享到朋友圈
+            }
+        });
+    }
+
+    $('#share-this').click(function () {
+        $('#share-tip').show();
+        $('.opacity').css('background-color', '#f1f1f1').show();
+    })
+
+
+</script>
+
+</body>
+</html>

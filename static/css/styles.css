@@ -3,22 +3,19 @@
         font-size: 0.8em !important;
     }
 
-    /*.pInfo .right_content{*/
-    /*width: 35% !important;*/
-    /*}*/
     .pInfo .btn {
         width: 100% !important;
         right: 1px !important;
     }
 
-    .pInfo .btn button {
-        width: 7vw !important;
-        height: 7vw !important;
-    }
-
     .footer {
         font-size: 0.75rem !important;
     }
+}
+
+* {
+    padding: 0;
+    margin: 0;
 }
 
 body {
@@ -28,8 +25,8 @@ body {
 .opacity {
     background-color: #292929;
     position: fixed;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
     z-index: 97;
@@ -73,7 +70,7 @@ body {
     width: 60%;
     overflow: hidden;
     position: relative;
-    left: 20px;
+    left: 25px;
 }
 
 .pInfo p {
@@ -98,8 +95,8 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    padding: 15px 0;
-    border-radius: 10px;
+    margin: 15px 10px;
+    border-radius: 6px;
 }
 
 .right_content {
@@ -139,7 +136,7 @@ body {
     width: 7.5vw;
     height: 7.5vw;
     border-radius: 999px;
-    padding: 0!important;
+    padding: 0 !important;
 }
 
 .pInfo .btn i {
@@ -211,18 +208,32 @@ body {
 }
 
 /*查看订单*/
+#bought {
+    display: none;
+}
+
+#bought #title {
+    color: #4f4f4f;
+    position: relative;
+    top: 50px;
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+}
+
 #bought_list {
-    /*display: none;*/
     display: block;
     background-color: #f4dadb;
     box-shadow: 1px 1px 100px #fae0e1;
     position: relative;
     border-radius: 5px;
-    top: 60px;
+    top: 100px;
     margin: 0 auto;
     width: 85%;
     height: auto;
-    z-index: 99;
+    z-index: 95;
     padding: 10px;
 }
 
@@ -232,15 +243,52 @@ body {
 }
 
 #bought_list table tr td:first-child {
-    padding-left: 20%;
-    width: auto;
+    text-align: center;
+    width: 45%;
 }
 
 #bought_list table tr td:nth-child(2) {
-    position: absolute;
-    right: 20%;
-    width: auto;
+    padding-right: 15%;
+    width: 55%;
 }
+
+#all-money{
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+#bought-bs {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.bought-button {
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    top: 15px;
+    border-radius: 5px;
+    color: #434343;
+    width: 20vw;
+    height: 20vw;
+    line-height: 10vw;
+    margin-left: 15vw;
+    margin-bottom: 20px;
+    background-color: #c8d9eb;
+}
+
+#share-tip{
+    position: absolute;
+    display: none;
+    width: 230px;
+    height: 230px;
+    right: 40px!important;
+    z-index: 999;
+}
+
 
 /*提示*/
 #tip {
@@ -249,5 +297,15 @@ body {
     position: relative;
     top: 0;
     height: auto;
-    background-color: #eeecec;
+}
+
+#text-copy{
+    background-color: #f0f0f0;
+    width: 80%;
+    height: auto;
+    font-size: 1.1rem;
+    position: absolute;
+    left: 10%;
+    top: 100px;
+    z-index: 9999;
 }
