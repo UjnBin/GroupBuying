@@ -50,12 +50,13 @@ function submit() {
             group_number: group_number,//第几期
             order_number: order_number,//订单号
             p_single: p_single,//假单
-            rc_id: 0,
+            rc_id: localStorage.rc_id,
             client_name: client_name
         },
         success: function (res) {
             if (res == '0') {
                 alert('提交失败');
+                $('#none').hide();
             }
             if (res == '1') {
                 alert('提交成功');
@@ -70,9 +71,11 @@ function submit() {
             }
             if (res == '-1') {
                 alert('未到开团时间');
+                $('#none').hide();
             }
             if (res == '2') {
                 alert('真单只能提交一次，请到订单列表重新下单');
+                $('#none').hide();
             }
         },
     });

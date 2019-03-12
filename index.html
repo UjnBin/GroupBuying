@@ -2,19 +2,19 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
     <title>buy</title>
-    <script type="text/javascript" src="./static/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="./static/js/clipboard.min.js"></script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="./static/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="./static/js/clipboard.min.js" type="text/javascript"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript"></script>
 
     <script src="./static/js/vconsole.min.js"></script>
     <!--<script>var vConsole = new VConsole();</script>-->
 
     <script src="static/js/common.js"></script>
-    <link rel="stylesheet" type="text/css" href="./static/css/styles.css">
-    <link rel="stylesheet" type="text/css" href="./static/css/weui.css">
+    <link href="./static/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="./static/css/weui.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -24,33 +24,33 @@
     <div class="weui-cell weui-cell_switch">
         <div class="weui-cell__bd">团长您好</div>
         <div class="weui-cell__ft">添加假单
-            <input class="weui-switch" type="checkbox" id="false-from" onclick="$('#false-div').toggle();">
-        </div>
+            <input class="weui-switch" id="false-from" onclick="$('#false-div').toggle();" type="checkbox"></div>
     </div>
 
 
     <div class="weui-cell" id="false-div" style="display: none">
         <div class="weui-cell__hd"><label class="weui-label">假名</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="false-name" placeholder="输入假名"/>
+            <input class="weui-input" id="false-name" placeholder="输入假名" type="text"/>
         </div>
     </div>
 
-    <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default"
+    <a class="weui-btn weui-btn_mini weui-btn_default" href="javascript:"
        onclick="$('#form-list').toggle();$('#bought').hide();$('.buying').hide()">订单列表</a>
-    <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default"
+    <a class="weui-btn weui-btn_mini weui-btn_default" href="javascript:"
        onclick="$('#bought').hide();$('.buying').toggle();$('#form-list').hide()">下单界面</a>
-    <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default"
+    <a class="weui-btn weui-btn_mini weui-btn_default" href="javascript:"
        onclick="$('#text-copy #text1').empty().append(start_copy_text);$('#bought').hide();$('#text-copy').toggle()">开团单</a>
-    <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default"
+    <a class="weui-btn weui-btn_mini weui-btn_default" href="javascript:"
        onclick="over_order();$('#bought').hide();$('#text-copy').toggle()">结团单</a>
-
+    <a class="weui-btn weui-btn_mini weui-btn_default" href="javascript:"
+       onclick="get_order()">提货单</a>
 
     <div id="form-list" style="display: none"></div>
 
     <div id="text-copy" style="display: none">
         <div id="text1"></div>
-        <a href="javascript:" id="copy-button" class="weui-btn weui-btn_plain-primary" data-clipboard-target="#text1"
+        <a class="weui-btn weui-btn_plain-primary" data-clipboard-target="#text1" href="javascript:" id="copy-button"
            onclick="$('.opacity').toggle();">复制并关闭</a>
     </div>
 
@@ -63,8 +63,8 @@
         <table></table>
         <div id="all-money"></div>
         <div id="bought-bs">
-            <div id="delete-this" class="bought-button">重新<br>下单</div>
-            <div id="share-this" class="bought-button">分享<br>订单</div>
+            <div class="bought-button" id="delete-this">重新<br>下单</div>
+            <div class="bought-button" id="share-this">分享<br>订单</div>
         </div>
     </div>
 </div>
@@ -83,11 +83,11 @@
     </div>
     <div class="left" onclick="show_buy_list()">
         已选：<span id="cartN">
-             <span id="totalcountshow" class="reset">0</span>份　总计：￥<span id="totalpriceshow" class="reset">0</span>
+             <span class="reset" id="totalcountshow">0</span>份　总计：￥<span class="reset" id="totalpriceshow">0</span>
            </span>元<span style="font-size:10px;">&nbsp;&nbsp;查看购物车</span>
     </div>
     <div class="right">
-        <a id="btnselect" class="xhlbtn" href="javascript:void(0)" onclick="submit();">选好了</a>
+        <a class="xhlbtn" href="javascript:void(0)" id="btnselect" onclick="submit();">选好了</a>
     </div>
 </div>
 
@@ -95,7 +95,7 @@
 <script>
     var furl = 'http://47.93.220.57/groupbuying/api';
     var group_number, openid, rc, client_name, order_number, code, share_imgurl;
-    var start_copy_text='',over_copy_text='';
+    var start_copy_text = '', over_copy_text = '';
     var all_money = 0;
     var curl = location.href.split('#')[0];
 
@@ -117,8 +117,7 @@
         if (localStorage.openid && localStorage.openid != 'undefined') {
             var temp_data = {openId: localStorage.openid, client_name: localStorage.client_name};
             var temp_url = furl + '/Get_Product_2'
-        }
-        else {
+        } else {
             //获取openID
             var temp_data = {'code': code};
             var temp_url = furl + "/Get_Product_1/5";
@@ -128,6 +127,7 @@
             data: temp_data,
             type: 'get',
             success: function (all) {
+                localStorage.rc_id = all.rc_id;
                 if (all.isreg == '0') {
                     window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4acf59cd381f3e28&redirect_uri=http%3a%2f%2fxmhome.xyz%2fConch%2fnormal-register.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
                 }
@@ -161,7 +161,7 @@
                         success: function (res) {
                             $('.footer').show();
                             for (var i in res) {
-                                start_copy_text =start_copy_text + (parseInt(i) + 1) + '&nbsp&nbsp' + res[i].product_name + '&nbsp&nbsp￥' + res[i].product_price + '<br>' + res[i].product_intro + '<br>'
+                                start_copy_text = start_copy_text + (parseInt(i) + 1) + '&nbsp&nbsp' + res[i].product_name + '&nbsp&nbsp￥' + res[i].product_price + '<br>' + res[i].product_intro + '<br>'
                                 var card1 = '<div class="pInfo" id="' + res[i].product_id + '"><img src="' + res[i].product_picture_url + '"/><div class="text"><p class="x-title">' + res[i].product_name + '</p> <p class="x-context">' + res[i].product_intro + '</p> </div><div class="right_content"> <div class="price">￥' + res[i].product_price + '</div> <div class="btn"><button class="minus" disabled="disabled">-</button><i>0</i><button class="add">+</button></div></div></div>'
                                 $('.right_box').append(card1);
                             }
@@ -271,21 +271,20 @@
         });
     });
 
-
     //结团单
     function over_order() {
-        over_copy_text=''
+        over_copy_text = ''
         ajax(
             {
-                url:furl+'/GetShopList2?rc_id=0',
-                success:function (all) {
-                    var res=all.product;
-                    for (var i in res){
-                        over_copy_text=over_copy_text+res[i].client_name+'<br>'
-                        for (var j in res[i].products){
-                            over_copy_text=over_copy_text+res[i].products[j].product_name+'X'+res[i].products[j].product_number+'&nbsp&nbsp'
+                url: furl + '/GetShopList2?rc_id=0',
+                success: function (all) {
+                    var res = all.product;
+                    for (var i in res) {
+                        over_copy_text = over_copy_text + res[i].client_name + '<br>'
+                        for (var j in res[i].products) {
+                            over_copy_text = over_copy_text + res[i].products[j].product_name + 'X' + res[i].products[j].product_number + '&nbsp&nbsp'
                         }
-                        over_copy_text=over_copy_text+'<br>';
+                        over_copy_text = over_copy_text + '<br>';
                     }
                     $('#text-copy #text1').empty().append(over_copy_text);
                 }
@@ -295,7 +294,18 @@
         )
     }
 
+    //提货单
+    function get_order() {
+        ajax({
+            url: 'http://xmhome.xyz/groupbuying/api/GetRcExcel?rc_id=' + localStorage.openid,
+            type: 'get',
+            success: function (res) {
+                location.href = res
+            }
+        })
 
+
+    }
 
 </script>
 
