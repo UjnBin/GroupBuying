@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>小区管理界面</title>
+		  <link rel="stylesheet" type="text/css" href="css/mdui.min.css">
+		  <link rel="stylesheet" type="text/css" href="css/mduii.css">
+		  <script src="js/mdui.min.js"></script>
+		  <script src="js/jquery-3.3.1.min.js"></script>
+		
+		  
+		<script>
+			
+			
+			function see2(){ 			//商品显示方法
+			    $.get("http://47.93.220.57/groupbuying/api/GetRCC",function(rc){
+				for(i=0;i<rc.length;i++){
+					var txt = "<div class='card'><img class='product_picture' src=''/><div class='product_name'>"	+rc[i].re_name+	"</div><br/><div class='product_intro'>"+rc[i].rc_phone+"</div><img class='delete' onclick='de()' src='img/_ionicons_svg_md-trash.svg'/><div class='product_price' onclick='gai()'>"	+rc[i].rc_address+	"</div>	<br/><div class='product_id' ></div></div>"
+					$(".card1").before(txt);								
+					}
+				});
+			}
+			
+			function de(){
+				var aDiv = window.prompt("请输入所添加的小区名");
+					
+					$.post("http://47.93.220.57/groupbuying/api/InsertHE",
+						{
+						address:aDiv
+						},function(data){
+						if(data){alert("添加完毕");}
+						else{alert("添加失败");}
+						});
+			}
+
+			function gai(){
+				$('#btn7').one('click', '.card', function () {
+			  					var oDiv =$(this).find("div[class='product_id']").text();
+			  					var uDiv = window.prompt("请输入改后的价格");
+//			  					var abs=parseFloat(uDiv);
+			  					
+		  						$.get("http://47.93.220.57/groupbuying/api/AlterPrice",
+							      {
+									product_id:oDiv,
+									price:uDiv
+									},function(data){
+							        if(data){alert("更改完毕");}
+									else{alert("更改失败");}
+									});
+				  			});
+			}
+			$(document).ready(function(){
+
+				see2();//商品显示
+			});
+		</script>
+	</head>
+	<body>
+		<header>
+			<p class="title"><b>团长管理界面</b></p>
+			<br/>
+			<div id="hr"></div>
+		</header>
+		
+		<div id="left">
+			<button id="btn7" class="mdui-btn mdui-color-theme-accent mdui-ripple" onclick='de()' ><b>添加小区</b></button><br />
+			
+		</div>
+		
+		<div id="right">
+			
+		    <div class='card1'></div>
+		  
+		</div>
+		  
+		
+		
+		</div>
+		
+		
+		<div id="footer">
+			
+		</div>
+		
+				  
+	</body>
+</html>
+<!--"rc_id":"o_by60Ti5OpcLJU22KgodYAWBasU",
+"re_name":"张益铭",
+"rc_phone":"18363260513",
+"re_nickame":"YYmonster",
+"rc_address":"林景山庄"
+
+
+"product_name":"承文叙",
+"product_id":"1000009",
+"product_price":123.0,"
+product_picture_url":"http://47.93.220.57//GROUP_BUY_PRODUCT//1.jpg",
+"product_intro":"我是一只"-->

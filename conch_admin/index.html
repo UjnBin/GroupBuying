@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>海鲜王管理界面</title>
+		  <link rel="stylesheet" type="text/css" href="css/mdui.min.css">
+		  <link rel="stylesheet" type="text/css" href="css/mduii.css">
+		  <script src="js/mdui.min.js"></script>
+		  <script src="js/jquery-3.3.1.min.js"></script>
+		  <script src="js/index.js"></script>
+		  
+		<script>
+			function de(){
+				var abi=0;
+			  	 var off=confirm("确认删除此商品？");
+			  			if(off){	
+			  				$('#right').one('click', '.card', function () {
+			  					var oDiv =$(this).find("div[class='product_id']").text();
+			  					$(this).hide(function(){});
+		  						$.get("http://47.93.220.57/groupbuying/api/Delete2",
+							      {ids:oDiv},function(data){
+							        if(data){alert("已删除");}
+									else{alert("删除失败");}
+									});
+				  			});
+			  			}
+			}
+			function gai(){
+				$('#right').one('click', '.card', function () {
+			  					var oDiv =$(this).find("div[class='product_id']").text();
+			  					var uDiv = window.prompt("请输入改后的价格");
+
+		  						$.get("http://47.93.220.57/groupbuying/api/AlterPrice",
+							      {
+									product_id:oDiv,
+									price:uDiv
+									},function(data){
+							        if(data){alert("更改完毕");}
+									else{alert("更改失败");}
+									});
+				  			});
+			}
+			
+			$(document).ready(function(){
+				see();//商品显示
+			});
+		</script>
+	</head>
+	<body>
+		<header>
+			<p class="title"><b>海鲜王管理界面</b></p>
+			<br/>
+			<div id="hr"></div>
+		</header>
+		
+		<div id="left">
+			<button id="btn1" class="mdui-btn mdui-color-theme-accent mdui-ripple" ><b>定时开团</b></button><br />
+			<button id="btn2" class="mdui-btn mdui-color-theme-accent mdui-ripple" ><b>立刻关团</b></button><br />
+			<button id="btn3" class="mdui-btn mdui-color-theme-accent mdui-ripple" ><b>添加商品</b></button><br />
+			<button id="btn4" class="mdui-btn mdui-color-theme-accent mdui-ripple" ><b>团长注册</b></button><br />
+			<button id="btn5" class="mdui-btn mdui-color-theme-accent mdui-ripple" ><b>团购结果</b></button><br />
+			<button id="btn6" class="mdui-btn mdui-color-theme-accent mdui-ripple" ><b>小区管理</b></button><br />
+		
+		</div>
+		
+		<div id="right">
+			<div class='card1'></div>
+		</div>
+
+		<div id="footer"></div>
+		
+		
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<script>
+//		document.getElementById("btn").onclick=function(){displayDate()};
+		function displayDate(){
+		
+		       var e=document.getElementById("contents");//对象是contents 
+        e.select(); //选择对象 （全选）
+        document.execCommand("Copy"); //执行浏览器复制命令
+	}
+//		$("button").click(function(){
+//		  var e=document.getElementById("contents");//对象是contents 
+//        e.select(); //选择对象 （全选）
+//        document.execCommand("Copy"); 
+//		});
+	</script>
+	<head>
+		<meta charset="UTF-8">
+		<title>团长注册</title>	
+	</head>
+		<p class="title"><b>团长注册</b></p>
+
+	<body>
+		<div class="center">
+			<p>请用微信将此网址发给团长并让其填写信息</p>
+		<input  id="contents"  size="20" name="fyd_ta000030"  value="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4acf59cd381f3e28&redirect_uri=http%3a%2f%2fxmhome.xyz%2fConch%2fregister.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">
+		<button id="btn" onclick="displayDate()">复制</button>
+		</div>
+	</body>
+</html>

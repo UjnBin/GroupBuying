@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商品添加</title>
+		<style type="text/css">
+			body{
+			background-color: #e9e9e5;
+			}
+			.center{
+				height: 80px;
+				width: 100%;
+				position: fixed;
+				top: 0px;
+			}
+			.title{
+				padding-top: 0px;
+				text-align: center;
+				font-family: "微软雅黑";
+				font-size: 35px;
+				font-weight: 8px;
+				color: black;
+			}
+			h1,h3{float: left;}
+			#hr{
+				width: 100%;
+				height: 5px;
+				background-color: #9E9E9E;
+			}
+			.center{
+				width: 50%;
+				margin-left: 25%;
+				margin-top: 200px;
+				text-align: center;
+			}
+			.btn{
+				margin-top: 7%;
+			}
+			.product_name,.product_picture,.product_intro,.product_price{
+				margin-top: 5%;
+			}
+			#intro{
+				height: 30px;
+				width: 300px;
+			}
+		</style>
+			
+	</head>
+	<header>
+		<p class="title"><b>商品添加</b></p>
+		<br/>
+		<div id="hr"></div>
+	</header>
+	<body>
+		<div class="center">
+		<form id="newproduct" action="http://47.93.220.57/groupbuying/api/AddSeaFood"   method="post" enctype="multipart/form-data">
+	 		<div class="product_picture">
+				商品图：<br/>	<input type="file" name="product_picture_url"  class="name"  placeholder="">	
+			</div>
+	 		<div class="product_name">
+				商品名：&nbsp;	<input type="text" name="product_name" size="8" class="name" maxlength="10" width="120px" placeholder="海螺">	
+			</div>
+			<div class="product_price">
+				价格：&nbsp;&nbsp;	<input type="text" name="product_price" size="4" class="price" maxlength="4" width="60px" placeholder="15">	&nbsp;元
+			</div>
+			<div class="product_intro">
+				商品简介：<br/><br/><textarea name="product_intro" id="intro" placeholder="                （最多25字）" class="form-control" rows="2" placeholder="30"></textarea>	
+			</div>
+			<div class="product_id">
+				商品ID：&nbsp;	<input type="text" name="product_id" size="8" class="name" maxlength="10" width="120px" placeholder="100001">	
+			</div>
+			<input class="btn" type="submit" value="保存">&nbsp;&nbsp;&nbsp;&nbsp;
+        </form>	
+        
+		</div>
+		</div>
+	</body>
+</html>

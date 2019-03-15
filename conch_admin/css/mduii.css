@@ -1,0 +1,121 @@
+			*{
+				height: auto;
+			}
+			body{
+			background-color: #e9e9e5;
+			}
+			hr{size: 80;}
+			header{
+/*				height: 80px;
+*/				width: 100%;
+				position: fixed;
+				z-index: 8000;
+				top: 0px;
+				background: #e9e9e5;
+			}
+			.title{
+				padding-top: 20px;
+				text-align: center;
+				font-family: "微软雅黑";
+				font-size: 35px;
+				font-weight: 8px;
+				color: black;
+				
+			}
+			h1,h3{float: left;}
+			#hr{
+				width: 100%;
+				height: 5px;
+				background-color: #9E9E9E;
+				}
+			#left{
+				margin-top: 200px;
+				width: 20%;
+				height: 800px;
+				position: fixed;
+				left: 0px;
+			}	
+			
+			#btn1,#btn2,#btn3,#btn4,#btn5,#btn6,#btn7,#btn8{
+				margin-top: 50px;
+				background-color: #d4d6c8;
+				box-shadow: 3px 3px 2px #888888;
+			}
+			#right{
+				height: auto;
+				margin-top: 200px;
+				margin-right: 60px;
+				width: 80%;
+				float: right;
+				right: 0px;
+				z-index: 22;
+				
+			}
+			#icards{
+				
+				margin: 0;
+				padding: 0;
+			}
+			.card{
+				width: 80%;
+				height: 100px;
+				border-radius:10px;
+				background-color: #d4d6c8;
+				margin-bottom: 10px;
+				margin-left: 100px;
+				font-family: "YouYuan";
+				box-shadow: 2px 2px 15px #52616b;
+				}
+			#cars{
+				width: 80%;
+				height: 100px;
+				border-radius:10px;
+				background-color: #d4d6c8;
+				margin-bottom: 10px;
+				margin-left: 100px;
+				font-family: "YouYuan";
+				box-shadow: 2px 2px 15px #52616b;
+				}	
+			
+			.product_picture{
+				width: 150px;
+				height: 100%;
+				float: left;
+				border-radius:10px;
+			}
+			.product_name{
+				width: 100px;
+				float: left;
+				margin-top: 15px;
+				margin-left: 50px;
+				margin-right: 15px;
+				height: 50%;
+				font-size: 30px;
+				font-weight:40;
+			}
+			.product_intro{
+				float: left;
+				margin-top: 30px;
+				margin-left: 30px;
+			}
+			.product_price{
+				width: 30px;
+				float: right;
+				margin-right: 100px;
+				margin-top: 25px;
+				border-radius:25%;
+			}
+			.product_id{
+				font-size: smaller;
+				margin-top: 40px;
+				margin-right: 40px;
+				float: right;
+			}
+			.delete{
+				height: 40px;
+				width: 40px;
+				float: right;
+				margin-right: 20px;
+				margin-top: 15px;
+			}
+			
